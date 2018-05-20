@@ -85,9 +85,7 @@ namespace Data_clustering
             {
                 nearestPointsInGroups.Clear();
                 foreach (Point currentGroupPoint in currentGroup)
-                {
-                    //TODO: Find average point
-                    // Nearest point
+                {                    
                     foreach (Point anotherGroupPoint in group)
                     {
                         double metric = Point.CalculateEuclideanMetric(currentGroupPoint, anotherGroupPoint);
@@ -97,7 +95,19 @@ namespace Data_clustering
                         }
                     }
                 }
-                nearestGroups.Add(nearestPointsInGroups.Keys.First(), nearestPointsInGroups.Values.First());
+
+                // Average point
+                int avgPoint = nearestPointsInGroups.Keys.Count / 2;
+                KeyValuePair<double, List<Point>> element = nearestPointsInGroups.ElementAt(avgPoint);
+
+                // Nearest point
+                // KeyValuePair<double, List<Point>> element = nearestPointsInGroups.ElementAt(0);
+
+                // Fartest point
+                //KeyValuePair<double, List<Point>> element = nearestPointsInGroups.ElementAt(nearestPointsInGroups.Count - 1);
+
+
+                nearestGroups.Add(element.Key, element.Value);
             }
 
             return nearestGroups.First();
